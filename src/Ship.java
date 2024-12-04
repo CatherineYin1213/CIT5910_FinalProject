@@ -34,7 +34,10 @@ public abstract class Ship {
     /**
 	 * Constructor of Ship
 	 */
-    public Ship() {}
+    public Ship(int length) {
+        this.length = length;
+        this.hit = new boolean[length];
+    }
 
     /**
 	 * the length of the ship. Abstract function.
@@ -162,7 +165,10 @@ public abstract class Ship {
         for (int i = 0; i < length; i++) {
             int currentRow = horizontal ? bowRow : bowRow + i;
             int currentCol = horizontal ? bowColumn + i : bowColumn;
-            if(currentRow == row && currentCol == column) return true;
+            if(currentRow == row && currentCol == column) {
+                hit[i] = true;
+                return true;
+            }
         }
         return false;
     }
@@ -179,4 +185,14 @@ public abstract class Ship {
         return true;
     }
 
+    /**
+     * return "x" if the ship has been sunk, and "S" if it has not yet been sunk.
+	 */
+    public String toString() {
+        if(isSunk()) return "x";
+        for (boolean partHit : hit) {
+            if (partHit) return "S";
+        }
+        return ".";
+    }
 }
