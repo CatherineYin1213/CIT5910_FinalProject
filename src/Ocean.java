@@ -201,15 +201,7 @@ public class Ocean implements OceanInterface {
 						System.out.print(". ");
 					}
 				} else{
-					if(target.isSunk()) {
-						System.out.print("x ");
-					}
-					else if(target.shootAt(row, col)) {
-						System.out.print("S ");
-					}
-					else {
-						System.out.print(". ");
-					}
+					System.out.print(target.toString() + " ");
 				}
 			}
 		}
