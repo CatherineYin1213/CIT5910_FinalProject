@@ -23,26 +23,33 @@ public class BattleshipGame {
 	 */
     private static void acceptShot(Ocean ocean) {
         Scanner scanner = new Scanner(System.in);
-        int row, column;
-        while (true) {
+        int row = -1, column = -1;
+        while(true) {
             try {
                 System.out.print("Enter the row of your shot: ");
                 row = scanner.nextInt();
                 if (row < 0 || row >= 10) {
                     System.out.println("Invalid row!");
-                    continue;
-                }
+                } else break;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter integer.");
+                scanner.nextLine();
+            }
+        }
+
+        while (true) {
+            try {
                 System.out.print("Enter the column of your shot: ");
                 column = scanner.nextInt();
                 if (column < 0 || column >= 10) {
                     System.out.println("Invalid column!");
-                }else {
-                    break;
-                }
+                } else break;
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter integer.");
+                scanner.nextLine();
             }
         }
+
         boolean hit = ocean.shootAt(row, column);
         if (hit) {
             if (ocean.getShipArray()[row][column].isSunk()){
@@ -53,8 +60,6 @@ public class BattleshipGame {
         } else {
             System.out.println("Miss!");
         }
-
-
     }
 
     private static void printFinalScores(Ocean ocean) {

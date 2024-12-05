@@ -189,10 +189,15 @@ public abstract class Ship {
      * return "x" if the ship has been sunk, and "S" if it has not yet been sunk.
 	 */
     public String toString() {
-        if(isSunk()) return "x";
+        if(isSunk()) return "x".repeat(getLength());
+        StringBuilder result = new StringBuilder();
         for (boolean partHit : hit) {
-            if (partHit) return "S";
+            if (partHit) {
+                result.append('S');
+            } else{
+                result.append('.');
+            }
         }
-        return ".";
+        return result.toString();
     }
 }

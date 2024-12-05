@@ -85,7 +85,6 @@ public class Ocean implements OceanInterface {
 		}
 	}
 
-
 	/**
 	 * Checks if this coordinate is not empty; that is, if this coordinate does not
 	 * contain an EmptySea reference.
@@ -114,10 +113,12 @@ public class Ocean implements OceanInterface {
 	public boolean shootAt(int row, int column) {
 		shotsFired++;
 		Ship targetShip = ships[row][column];
-		if(targetShip instanceof EmptySea) return false;
 		boolean hit = targetShip.shootAt(row, column);
 		if(hit) {
 			hitCount++;
+		}
+		if (targetShip.isSunk()) {
+			shipsSunk++;
 		}
 		return hit;
 	}
@@ -185,27 +186,28 @@ public class Ocean implements OceanInterface {
 	 * 
 	 */
 	public void print() {
-		System.out.println(" ");
+		System.out.print("\t");
 		for (int col = 0; col < 10; col++) {
-			System.out.print(col + " ");
+			System.out.print(col + "\t");
 		}
 		System.out.println();
 		for (int row = 0; row < 10; row++) {
-			System.out.print(row + " ");
+			System.out.print(row + "\t");
 			for (int col = 0; col < 10; col++) {
 				Ship target = ships[row][col];
 				if(target instanceof EmptySea) {
-					if(target.shootAt(row, col)) {
-						System.out.print("- ");
-					}else {
-						System.out.print(". ");
-					}
+					System.out.print(target.toString() + "\t");
 				} else{
-					System.out.print(target.toString() + " ");
+					String shipStatus = target.toString();
+					int bowRow = target.getBowRow();
+					int bowCol = target.getBowColumn();
+					boolean horizontal = target.isHorizontal();
+					int index = horizontal ? col - bowCol : row - bowRow;
+					System.out.print(shipStatus.charAt(index) + "\t");
 				}
 			}
+			System.out.println();
 		}
-		System.out.println();
 	}
 
 }
