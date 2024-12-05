@@ -6,7 +6,7 @@ public class BattleshipGame {
             playGame();
         } while (askToPlay());
     }
-    private static void playGame() {
+    public static void playGame() {
         Ocean ocean = new Ocean();
         ocean.placeAllShipsRandomly();
         System.out.println("Game Start!");
@@ -21,7 +21,7 @@ public class BattleshipGame {
     /**
 	 * Accepts a shot from the user and updates the ocean state.
 	 */
-    private static void acceptShot(Ocean ocean) {
+    public static void acceptShot(Ocean ocean) {
         Scanner scanner = new Scanner(System.in);
         int row = -1, column = -1;
         while(true) {
@@ -62,7 +62,7 @@ public class BattleshipGame {
         }
     }
 
-    private static void printFinalScores(Ocean ocean) {
+    public static void printFinalScores(Ocean ocean) {
         System.out.println("Final Scores:");
         System.out.println("Total shots fired: " + ocean.getShotsFired());
         ocean.print();
@@ -71,7 +71,7 @@ public class BattleshipGame {
     /**
 	 * @return true if the user wants to play again, false otherwise
 	 */
-    private static boolean askToPlay() {
+    public static boolean askToPlay() {
         Scanner scanner = new Scanner(System.in);
         String answer;
         while(true) {
